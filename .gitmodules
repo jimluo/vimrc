@@ -48,7 +48,7 @@
 	url = git://github.com/ervandew/supertab.git
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
-	url = git://github.com/majutsushi/tagbar
+	url = git://github.com/majutsushi/tagbar.git
 [submodule "bundle/VisIncr"]
 	path = bundle/VisIncr
 	url = git://github.com/vim-scripts/VisIncr.git
@@ -64,12 +64,12 @@
 [submodule "bundle/zencoding"]
 	path = bundle/zencoding
 	url = git://github.com/mattn/zencoding-vim.git
-[submodule "bundle/AutoComlPop"]
-	path = bundle/AutoComlPop
-	url = git://github.com/vim-scripts/AutoComplPop.git
 [submodule "bundle/fugitive"]
 	path = bundle/fugitive
 	url = git://github.com/tpope/vim-fugitive.git
 [submodule "bundle/pyflakes"]
 	path = bundle/pyflakes
 	url = git://github.com/kevinw/pyflakes-vim.git
+[submodule "bundle/easymotion"]
+	path = bundle/easymotion
+	url = git://github.com/Lokaltog/vim-easymotion.git
