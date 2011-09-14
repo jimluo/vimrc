@@ -1,0 +1,66 @@
+[submodule "bundle/AutoComplPop"]
+	path = bundle/AutoComplPop
+    url = git://github.com/vim-scripts/AutoComplPop
+[submodule "bundle/align"]
+	path = bundle/align
+	url = git://github.com/tsaleh/vim-align
+[submodule "bundle/autoclose"]
+	path = bundle/autoclose
+	url = git://github.com/Townk/vim-autoclose.git
+[submodule "bundle/autoclosetag"]
+	path = bundle/autoclosetag
+    url = git://github.com/vim-scripts/HTML-AutoCloseTag
+[submodule "bundle/command-t"]
+	path = bundle/command-t
+	url = git://github.com/wincent/Command-T.git
+[submodule "bundle/CuteErrorMarker"]
+	path = bundle/CuteErrorMarker
+	url = git://github.com/Twinside/vim-cuteErrorMarker.git
+[submodule "bundle/easymotion"]
+	path = bundle/easymotion
+	url = git://github.com/Lokaltog/vim-easymotion.git
+[submodule "bundle/easymotion"]
+	path = bundle/easymotion
+	url = git://github.com/vim-scripts/grep.vim
+[submodule "bundle/jslint"]
+	path = bundle/jslint
+	url = git://github.com/hallettj/jslint.vim.git
+[submodule "bundle/lua-ftplugin"]
+	path = bundle/lua-ftplugin
+	url = git://github.com/xolox/vim-lua-ftplugin.git
+[submodule "bundle/matchit"]
+	path = bundle/matchit
+	url = git://github.com/vim-scripts/matchit.zip.git
+[submodule "bundle/nerdtree"]
+	path = bundle/nerdtree
+	url = git://github.com/scrooloose/nerdtree.git
+[submodule "bundle/nerdcommenter"]
+	path = bundle/nerdcommenter
+	url = git://github.com/scrooloose/nerdcommenter.git
+[submodule "bundle/surround"]
+	path = bundle/surround
+	url = git://github.com/tpope/vim-surround.git
+[submodule "bundle/snipmate"]
+	path = bundle/snipmate
+	url = git://github.com/msanders/snipmate.vim.git
+[submodule "bundle/shell"]
+	path = bundle/shell
+	url = git://github.com/xolox/vim-shell.git
+[submodule "bundle/supertab"]
+	path = bundle/supertab
+	url = git://github.com/ervandew/supertab.git
+[submodule "bundle/tagbar"]
+	path = bundle/tagbar
+	url = git://github.com/majutsushi/tagbar
+[submodule "bundle/VisIncr"]
+	path = bundle/VisIncr
+	url = git://github.com/vim-scripts/VisIncr.git
+[submodule "bundle/xmledit"]
+	path = bundle/xmledit
+	url = git://github.com/sukima/xmledit.git
+[submodule "bundle/yankring"]
+	path = bundle/yankring
+	url = git://github.com/vim-scripts/YankRing.vim.git
+[submodule "bundle/zen"]
+	path = bundle/zen
+	url = git://github.com/mattn/zencoding-vim.git
