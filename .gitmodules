@@ -1,6 +1,6 @@
 [submodule "bundle/AutoComplPop"]
 	path = bundle/AutoComplPop
-    url = git://github.com/vim-scripts/AutoComplPop
+	url = git://github.com/vim-scripts/AutoComplPop
 [submodule "bundle/align"]
 	path = bundle/align
 	url = git://github.com/tsaleh/vim-align
@@ -9,7 +9,7 @@
 	url = git://github.com/Townk/vim-autoclose.git
 [submodule "bundle/autoclosetag"]
 	path = bundle/autoclosetag
-    url = git://github.com/vim-scripts/HTML-AutoCloseTag
+    	url = git://github.com/vim-scripts/HTML-AutoCloseTag
 [submodule "bundle/command-t"]
 	path = bundle/command-t
 	url = git://github.com/wincent/Command-T.git
