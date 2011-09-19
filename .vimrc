@@ -18,7 +18,7 @@ set autowrite
 
 " Vim UI {
 if has("gui_running")	" GUI color and font settings
-  set guifont=Monaco:h10:cANSI
+  set guifont=Monaco:h10
   "set background=dark 
   set cursorline        " highlight current line
   colors ir_black
@@ -36,6 +36,7 @@ set guioptions=eGm
 set guitablabel=%N:\ %t\ %M
 set clipboard+=unnamed      " set clipboard for system OS 
 set foldenable              "
+set foldmethod=indent
 set list
 set listchars=tab:\|\ ,trail:.,extends:>,precedes:<
 " }
@@ -86,13 +87,14 @@ language messages en_gb.utf-8
 " statusline {
 set laststatus=2
 set statusline=
-set statusline+=%-52F
+set statusline+=%2*%-3.3n%0*\   " buffer number
+set statusline+=\ %f
 set statusline+=\ %{&ff=='unix'?'\\n':(&ff=='mac'?'\\r':'\\r\\n')}
 set statusline+=\ %{&fenc!=''?&fenc:&enc}
 set statusline+=\ %Y  "file type
-set statusline+=\ %{fugitive#statusline()} "  Git Hotness
+"set statusline+=\ %{fugitive#statusline()} "  Git Hotness
 set statusline+=\ %{getcwd()}          " current dir
-set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+set statusline+=\ %=%-10.(%l,%c%V%)\ %p%%  " Right aligned file nav info
 "}
 
 " Search {
@@ -121,11 +123,12 @@ nmap <leader>%  :%s/<C-R><C-W>/
 nmap <leader>lv :lv /<c-r>=expand("<cword>")<cr>/ %<cr>:lw<cr>  "list search
 nmap <leader>nt :NERDTreeFind<CR>
 map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-map <C-l> :TagbarToggle<CR>
-map <C-b> :CommandT<CR>
-map <C-t> :CommandTBuffer<CR>
-let g:shell_mappings_enabled = 0
+map <C-l> :TagbarOpen<CR>
+map <C-t> :CommandT<CR>
+map <C-b> :CommandTBuffer<CR>
+map <C-s> :w!<CR> 
 
+let g:shell_mappings_enabled = 0
 map <C-F11> :Fullscreen<CR>
 map <C-F12>op :Open<CR>
 
@@ -134,8 +137,7 @@ map <C-F12>op :Open<CR>
 set tags=./tags;/,$HOME/vimtags
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR> " C-\ - Open the definition in a new tab
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>      " A-] - Open the definition in a vertical split
-:map <C-F10> <Esc>:vsp<CR>:VTree<CR>
-" map Control + F10 to Vtree
+map <C-F10> <Esc>:vsp<CR>:VTree<CR>
 "
 " open the error console
 map <leader>cc :botright cope<CR> 
@@ -165,9 +167,6 @@ map <C-t><C-w> :tabclose<CR>
 
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
-	
-map <C-s> :w!<CR> 
-map <C-a> ggvgA
 
 """ Code folding options
 nmap <leader>f0 :set foldlevel=0<CR>
@@ -202,32 +201,15 @@ cmap w!! w !sudo tee % >/dev/null
 map <C-[> <ESC>:po<CR>
 "}
 
-" Writing Restructured Text (Sphinx Documentation) {
-   " Ctrl-u 1:    underline Parts w/ #'s
-   noremap  <C-u>1 yyPVr#yyjp
-   inoremap <C-u>1 <esc>yyPVr#yyjpA
-   " Ctrl-u 2:    underline Chapters w/ *'s
-   noremap  <C-u>2 yyPVr*yyjp
-   inoremap <C-u>2 <esc>yyPVr*yyjpA
-   " Ctrl-u 3:    underline Section Level 1 w/ ='s
-   noremap  <C-u>3 yypVr=
-   inoremap <C-u>3 <esc>yypVr=A
-   " Ctrl-u 4:    underline Section Level 2 w/ -'s
-   noremap  <C-u>4 yypVr-
-   inoremap <C-u>4 <esc>yypVr-A
-   " Ctrl-u 5:    underline Section Level 3 w/ ^'s
-   noremap  <C-u>5 yypVr^
-   inoremap <C-u>5 <esc>yypVr^A
-"}
-
 " omni completion. plugin options {
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType html,markdown set noexpandtab
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType c set omnifunc=ccomplete#Complete
-autocmd FileType java set omnifunc=javacomplete#Complete
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType c setlocal omnifunc=ccomplete#Complete
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
 autocmd FileType lua setlocal ts=2 sts=2 sw=2 expandtab 
 let g:lua_complete_omni = 1
 
