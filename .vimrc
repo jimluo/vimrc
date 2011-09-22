@@ -121,6 +121,7 @@ let g:mapleader=","
 map <leader>r :call Replace()<CR>
 nmap <leader>%  :%s/<C-R><C-W>/
 nmap <leader>lv :lv /<c-r>=expand("<cword>")<cr>/ %<cr>:lw<cr>  "list search
+map <C-u> :MRU<CR>
 nmap <leader>nt :NERDTreeFind<CR>
 map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 map <C-l> :TagbarOpen<CR>
@@ -130,7 +131,7 @@ map <C-s> :w!<CR>
 
 let g:shell_mappings_enabled = 0
 map <C-F11> :Fullscreen<CR>
-map <C-F12>op :Open<CR>
+map <C-F12> :Open<CR>
 
 " --- Ctags
 " This will look in the current directory for 'tags', and work up the tree towards root until one is found. 
@@ -138,6 +139,11 @@ set tags=./tags;/,$HOME/vimtags
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR> " C-\ - Open the definition in a new tab
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>      " A-] - Open the definition in a vertical split
 map <C-F10> <Esc>:vsp<CR>:VTree<CR>
+
+" For when you forget to sudo.. Really Write the file.
+cmap w!! w !sudo tee % >/dev/null
+" Ctrl-[ jump out of the tag stack (undo Ctrl-])
+map <C-[> <ESC>:po<CR>
 "
 " open the error console
 map <leader>cc :botright cope<CR> 
@@ -145,16 +151,6 @@ map <leader>cc :botright cope<CR>
 map <leader>] :cn<CR>
 " move to the prev error
 map <leader>[ :cp<CR>
-
-" Easier moving in tabs and windows
-map <C-J> <C-W>j<C-W>
-map <C-K> <C-W>k<C-W>
-map <C-L> <C-W>l<C-W>
-map <C-H> <C-W>h<C-W>
-
-" Wrapped lines goes down/up to next row, rather than next line in file.
-nnoremap j gj
-nnoremap k gk
 
 " The following two lines conflict with moving to top and bottom of the
 map <S-H> gT
@@ -178,27 +174,16 @@ nmap <leader>f4 :set foldlevel=4<CR>
 "clearing highlighted search
 nmap <silent> <leader>/ :nohlsearch<CR>
 
-" Bash like keys for the command line
-cnoremap <C-A>      <Home>
-cnoremap <C-E>      <End>
-cnoremap <C-K>      <C-U>
-
 " ,p toggles paste mode
 nmap <leader>p :set paste!<BAR>set paste?<CR>
 
 " Shortcuts
 " Change Working Directory to that of the current file
-cmap cwd lcd %:p:h
 cmap cd. lcd %:p:h
 
 " visual shifting (does not exit Visual mode)
 vnoremap < <gv
 vnoremap > >gv 
-
-" For when you forget to sudo.. Really Write the file.
-cmap w!! w !sudo tee % >/dev/null
-" Ctrl-[ jump out of the tag stack (undo Ctrl-])
-map <C-[> <ESC>:po<CR>
 "}
 
 " omni completion. plugin options {
@@ -222,16 +207,6 @@ if has("autocmd") && exists("+omnifunc")
               \	endif
 endif
 
-
-let b:match_ignorecase = 1
-au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
-
-" --- Command-T
-let g:CommandTMaxHeight = 15
-
-" --- SuperTab
-let g:SuperTabDefaultCompletionType = "context"
-
 " --- EasyMotion
 "let g:EasyMotion_leader_key = '<Leader>m' " default is <Leader>w
 hi link EasyMotionTarget ErrorMsg
@@ -240,7 +215,6 @@ hi link EasyMotionShade  Comment
 " --- TagBar
 " set focus to TagBar when opening it
 let g:tagbar_autofocus = 1
-
 
 let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '\.dsp', '\.opt', '\.plg']
