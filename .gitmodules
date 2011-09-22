@@ -37,18 +37,12 @@
 [submodule "bundle/shell"]
 	path = bundle/shell
 	url = git://github.com/xolox/vim-shell.git
-[submodule "bundle/supertab"]
-	path = bundle/supertab
-	url = git://github.com/ervandew/supertab.git
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
 	url = git://github.com/majutsushi/tagbar.git
 [submodule "bundle/VisIncr"]
 	path = bundle/VisIncr
 	url = git://github.com/vim-scripts/VisIncr.git
-[submodule "bundle/xmledit"]
-	path = bundle/xmledit
-	url = git://github.com/sukima/xmledit.git
 [submodule "bundle/yankring"]
 	path = bundle/yankring
 	url = git://github.com/vim-scripts/YankRing.vim.git
