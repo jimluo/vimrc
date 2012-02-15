@@ -19,9 +19,6 @@
 [submodule "bundle/pyflakes"]
 	path = bundle/pyflakes
 	url = git://github.com/kevinw/pyflakes-vim.git
-[submodule "bundle/easymotion"]
-	path = bundle/easymotion
-	url = git://github.com/Lokaltog/vim-easymotion.git
 [submodule "bundle/mru"]
 	path = bundle/mru
 	url = git://github.com/vim-scripts/mru.vim.git
@@ -49,3 +46,6 @@
 [submodule "bundle/neocomplcache"]
 	path = bundle/neocomplcache
 	url = https://github.com/Shougo/neocomplcache.git
+[submodule "bundle/calendar"]
+	path = bundle/calendar
+	url = https://github.com/vim-scripts/calendar.vim--Matsumoto.git

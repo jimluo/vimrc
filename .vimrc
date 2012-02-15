@@ -41,6 +41,7 @@ set guitablabel=%N:\ %t\ %M
 set clipboard+=unnamed      " set clipboard for system OS 
 set foldenable              "
 set foldmethod=marker " indent"
+"set list!
 set listchars=tab:>\ ,trail:-,extends:>,precedes:<
 " }
 
@@ -69,7 +70,7 @@ endfun
 set encoding=utf-8
 set termencoding=utf-8
 set fileencoding=chinese
-set fileencodings=ucs-bom,utf-8,cp936,chinese
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5
 "fun! ZH()
 	"set encoding=chinese
 	"set fileencoding=chinese
@@ -102,7 +103,7 @@ set statusline+=\ %*
                                "\ 'active_filetypes': ['c', 'lua'],
                                "\ 'passive_filetypes': ['puppet'] }
 " Search {
-set showmatch               " ²åÈëÀ¨ºÅÊ±£¬¶ÌÔÝµØÌø×ªµ½Æ¥ÅäµÄ¶ÔÓ¦À¨ºÅ
+set showmatch               " æ’å…¥æ‹¬å·æ—¶ï¼ŒçŸ­æš‚åœ°è·³è½¬åˆ°åŒ¹é…çš„å¯¹åº”æ‹¬å·
 set hlsearch  " highlighting searching
 set incsearch " do incremental searching
 set ignorecase " Set search/replace pattern to ignore case 
@@ -120,7 +121,6 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|
 "The default leader is '\', but many people prefer ',' as it's in a standard
 let mapleader = ','
 let g:mapleader=","
-let g:EasyMotion_leader_key = '<Leader>m' 
 
 "replace the current word in all opened buffers
 nmap <leader>r 	:call Replace()<CR>
@@ -135,9 +135,9 @@ nmap <leader>gW :vimgrep /<C-r><C-w>/ **/*.*<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR
 " Swap two words
 nmap <silent> gw :s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`'p <S-H> gT
 nmap <leader>u 	:MRU<CR>
-nmap <leader>nt 	:NERDTreeFind<CR>
+nmap <leader>nt :NERDTreeFind<CR>
 nmap <leader>e 	:NERDTreeToggle<CR>:NERDTreeMirror<CR>
-nmap <leader>l 	:TagbarOpen<CR>
+nmap <leader>l 	:TagbarToggle<CR>
 nmap <leader>t 	:CommandT<CR>
 nmap <leader>b 	:CommandTBuffer<CR>
 map <C-s> 	:w!<CR> 
@@ -203,7 +203,7 @@ map <C-t><C-w> :tabclose<CR>
 nnoremap Y y$
 
 "clearing highlighted search
-nmap <silent> <leader>/ :nohlsearch<CR>
+nmap <C-l> :nohlsearch<CR>
 
 " ,p toggles paste mode
 nmap <leader>p :set paste!<BAR>set paste?<CR>
@@ -220,20 +220,9 @@ vnoremap > >gv
 autocmd FileType c,cpp,cs,java          setlocal ai et sta sw=4 sts=4 cin
 autocmd FileType sh,csh,tcsh,zsh        setlocal ai et sta sw=4 sts=4
 autocmd FileType tcl,perl,python        setlocal ai et sta sw=4 sts=4
-autocmd FileType markdown,liquid        setlocal ai et sta sw=2 sts=2 tw=72
 autocmd FileType javascript             setlocal ai et sta sw=2 sts=2 ts=2 cin isk+=$
-autocmd FileType tex,css,scss           setlocal ai et sta sw=2 sts=2
-autocmd FileType html,xhtml,wml,cf      setlocal ai et sta sw=2 sts=2
-autocmd FileType xml,xsd,xslt           setlocal ai et sta sw=2 sts=2 ts=2
 autocmd FileType eruby,yaml,ruby,lua    setlocal ai et sta sw=2 sts=2
-autocmd FileType cucumber               setlocal ai et sta sw=2 sts=2 ts=2
-autocmd FileType text,txt,mail          setlocal ai tw=78 linebreak nolist com=fb:*,fb:-,n:>
-"autocmd FileType sh,zsh,csh,tcsh,perl,python,ruby imap <buffer> <C-X>& <C-X>!<Esc>o <C-U># $I<C-V>d$<Esc>o <C-U><C-X>^<Esc>o <C-U><C-G>u
 autocmd FileType c,cpp,cs,java,perl,javscript,php,css let b:surround_101 = "\r\n}"
-"autocmd FileType gitrebase nnoremap <buffer> S :Cycle<CR>
-autocmd FileType help setlocal ai fo+=2n | silent! setlocal nospell
-"autocmd FileType * setlocal omnifunc=syntaxcomplete#Complete
-"autocmd FileType * setlocal completefunc=syntaxcomplete#Complete
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
@@ -241,26 +230,28 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType c,cpp setlocal omnifunc=ccomplete#Complete
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
-autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
-let g:lua_complete_omni = 1
-
-" --- EasyMotion
-hi link EasyMotionTarget ErrorMsg
-hi link EasyMotionShade  Comment
+"autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
+"let g:lua_complete_omni = 1
 
 let NERDTreeShowBookmarks=1
-let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '\.dsp', '\.opt', '\.plg', '*.exe', '*.dll']
+let NERDTreeIgnore=['\.pyc', '\~$', '\.git', '\.hg', '\.svn', '\.dsp', '\.opt', '\.plg', '*.exe', '*.dll']
 
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
 
 let g:neocomplcache_enable_at_startup = 1
+"let g:NeoComplCache_DisableAutoComplete = 1
 let g:neocomplcache_enable_auto_select = 1
-" <CR>: close popup and save indent.
-inoremap <expr><CR>  neocomplcache#close_popup() . "\<CR>"
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 " <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
+imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+"inoremap <expr><CR>  neocomplcache#close_popup() . "\<CR>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 
@@ -270,17 +261,4 @@ endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
 let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-
-inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
- 
-function! s:align()
-  let p = '^\s*|\s.*\s|\s*$'
-  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
-    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
-    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
-    Tabularize/|/l1
-    normal! 0
-    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
-  endif
-endfunction
 "}
