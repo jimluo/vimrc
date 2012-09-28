@@ -1,6 +1,10 @@
 " jimluo's vimrc
 " vim:set ft=vim et tw=78 sw=2:
 
+if has('win32') || has('win64')
+    set runtimepath^=~/.vim
+endif
+
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
@@ -21,7 +25,7 @@ set noswapfile
 " Vim UI {
 if has("gui_running")	" GUI color and font settings
   set guifont=Monaco:h10
-  "set background=dark 
+  set background=dark 
   set cursorline        " highlight current line
   colors molokai
 else " terminal color settings
@@ -40,7 +44,6 @@ set guioptions=
 set clipboard+=unnamed      " set clipboard for system OS 
 "set list!
 set listchars=tab:>\ ,trail:-,extends:>,precedes:<
-set cscopetag
 " }
 
 " Formatting {
@@ -70,7 +73,7 @@ language messages en_gb.utf-8
 "}
 
 " Search {
-set showmatch               " 插入括号时，短暂地跳转到匹配的对应括号
+set showmatch " 插入括号时，短暂地跳转到匹配的对应括号
 set hlsearch  " highlighting searching
 set incsearch " do incremental searching
 set ignorecase " Set search/replace pattern to ignore case 
@@ -93,13 +96,14 @@ nmap <leader>%  :%s/<C-R><C-W>/
 " Search the current file for the word under the cursor and display matches
 nmap <leader>gw :vimgrep /<C-r><C-w>/ %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 " Search the current file for the WORD under the cursor and display matches
-nmap <leader>gW :vimgrep /<C-r><C-w>/ **/*.cpp *.c *.h *.java *.js *.py *.lua<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
+nmap <leader>gW :vimgrep /<C-r><C-w>/ **/*.cpp *.c *.h *.java *.js *.py *.lua *.rb<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
 " Swap two words
-nmap <silent> gw :s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`'p <S-H> gT
-nmap <leader>u 	:MRU 
-nmap <leader>e :NERDTreeFind<CR>
-"nmap <leader>e 	:NERDTreeToggle<CR>:NERDTreeMirror<CR>
+nmap <silent>sw :s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR>`'p <S-H> gT
+
+nmap <leader>e  :NERDTreeFind<CR>
+nmap <leader>ee :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 nmap <leader>l 	:TagbarOpen<CR>
+nmap <leader>ll	:TagbarToggle<CR>
 map <C-s> 	:w!<CR> 
 
 " --- Ctags
@@ -121,11 +125,12 @@ map <C-[> <ESC>:po<CR>
 "
 
 " Emacs style mappings
-inoremap     <C-X><C-@> <C-A>
 inoremap          <C-A> <C-O>^
+inoremap          <C-E> <C-O>$
 cnoremap          <C-A> <Home>
 inoremap          <C-E> <End>
-cnoremap     <C-X><C-A> <C-A>
+" inoremap     <C-X><C-@> <C-A>
+" cnoremap     <C-X><C-A> <C-A>
 map!              <M-b> <S-Left>
 map!              <M-f> <S-Right>
 noremap!          <M-d> <C-O>dw
@@ -165,6 +170,11 @@ cmap cd. lcd %:p:h
 " visual shifting (does not exit Visual mode)
 vnoremap < <gv
 vnoremap > >gv 
+
+map <M-j> <C-W>j
+map <M-k> <C-W>k
+map <M-h> <C-W>h
+map <M-l> <C-W>l
 "}
 " Highlight word
 "ai" autoindent, et:expandtab, sw:shiftwidth,tw=textwidth,ts=tabstop, cin:cindent,sts:sta:splite window for tag
@@ -183,25 +193,13 @@ autocmd FileType c,cpp setlocal omnifunc=ccomplete#Complete
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 "autocmd Filetype * if &omnifunc == "" | setlocal omnifunc=syntaxcomplete#Complete | endif
 
-autocmd FileType cucumber compiler cucumber | setl makeprg=cucumber\ \"%:p\"
-autocmd FileType ruby
-      \ if expand('%') =~# '_test\.rb$' |
-      \   compiler rubyunit | setl makeprg=testrb\ \"%:p\" |
-      \ elseif expand('%') =~# '_spec\.rb$' |
-      \   compiler rspec | setl makeprg=rspec\ \"%:p\" |
-      \ else |
-      \   compiler ruby | setl makeprg=ruby\ -wc\ \"%:p\" |
-      \ endif
-autocmd User Bundler
-      \ if &makeprg !~# 'bundle' | setl makeprg^=bundle\ exec\  | endif
-
 let NERDTreeShowBookmarks=1
 let NERDTreeIgnore=['\.pyc', '\~$', '\.git', '\.hg', '\.svn', '\.dsp', '\.opt', '\.plg', '*.exe', '*.dll']
 
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
 
-let g:neocomplcache_enable_at_startup = 1
+" let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_auto_select = 1
 let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_enable_camel_case_completion = 1
@@ -210,13 +208,14 @@ let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 "let g:neocomplcache_enable_quick_match = 1 "For input-saving, this variable controls whether you can  choose a candidate with a alphabet or number displayed beside a candidate after '-'.  When you input 'ho-a',  neocomplcache will select candidate 'a'.
 " Define keyword.
+let g:neocomplcache_snippets_dir='~/.vim/bundle/neocomplcache/autoload/neocomplcache/sources/snippets_complete'
 if !exists('g:neocomplcache_keyword_patterns')
   let g:neocomplcache_keyword_patterns = {}
 endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 " Plugin key-mappings.
-imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+imap <expr><C-k>     <Plug>(neocomplcache_snippets_expand)
+smap <expr><C-k>     <Plug>(neocomplcache_snippets_expand)
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
@@ -240,11 +239,6 @@ let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 
 let Gtags_Auto_Map = 1
 
-let MRU_Auto_Close = 1
-let MRU_Max_Entries = 100
-
-let g:Powerline_symbols = 'fancy'
-
 " " CTRLP
 let g:ctrlp_max_depth = 2
 let g:ctrlp_working_path_mode = 0
@@ -262,5 +256,9 @@ silent! nnoremap <unique> <silent> <Leader>f :CtrlPFiletype<CR>
 " Cmd-Shift-P to clear the cache
 nnoremap <silent> <D-P> :ClearCtrlPCache<cr>
 
-let g:indent_guides_enable_on_vim_startup = 1
 
+au BufNewFile,BufRead *.xaml        setf xml
+
+" let g:Powerline_symbols = 'fancy'
+let g:Powerline_symbols_override = {'BRANCH': [0x2213], 'LINE': 'L', }
+let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
